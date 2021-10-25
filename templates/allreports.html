@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pothole patrol-Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{{url_for('static', filename='dashassets/assets/vendors/mdi/css/materialdesignicons.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='dashassets/assets/vendors/css/vendor.bundle.base.css')}}">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="{{url_for('static', filename='dashassets/assets/vendors/jvectormap/jquery-jvectormap.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='dashassets/assets/vendors/flag-icon-css/css/flag-icon.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='dashassets/assets/vendors/owl-carousel-2/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='dashassets/assets/vendors/owl-carousel-2/owl.theme.default.min.css')}}">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{{url_for('static', filename='dashassets/assets/css/style.css')}}">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="{{url_for('static', filename='dashassets/assets/images/favicon.png')}}" />
+  </head>
+   <body>
+    <div class="container-scroller">
+    <div class="row ">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Reports</h4>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th> Name </th>
+                            <th> Location</th>
+                            <th> Pothole detected </th>
+                            <th> Accuracy </th>
+                            <th> Severity </th>
+                            <th> Date </th>
+                            <th> Report Status </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for doc in docs %}
+                          <tr>
+                            <td>
+                              {{doc['name']}}
+                            </td>
+                            <td> {{doc['pothole location']}} </td>
+                            <td> {{doc['pothole detected']}} </td>
+                            <td> {{doc['accuracy']}} </td>
+                            <td> {{doc['severity']}} </td>
+                            <td> {{doc['date']}} </td>
+                            <td>
+                            {%if doc['status'] == "completed" %}
+                              <div class="badge badge-outline-success">{{doc['status']}}</div>
+                            
+                            {%elif doc['status'] == "approved" %}
+                              <div class="badge badge-outline-primary">{{doc['status']}}</div>
+                            
+                            {%elif doc['status'] == "rejected" %}
+                              <div class="badge badge-outline-danger">{{doc['status']}}</div>
+                            
+                            {% else %}
+                              <div class="badge badge-outline-warning">{{doc['status']}}</div>
+                            {% endif %}
+                            </td>
+                          </tr>
+                          {% endfor %}
+                         
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+    <script src="{{url_for('static', filename='dashassets/assets/vendors/js/vendor.bundle.base.js')}}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="{{url_for('static', filename='dashassets/assets/vendors/chart.js/Chart.min.js')}}"></script>
+    <script src="{{url_for('static', filename='dashassets/assets/vendors/progressbar.js/progressbar.min.js')}}"></script>
+    <script src="{{url_for('static', filename='dashassets/assets/vendors/jvectormap/jquery-jvectormap.min.js')}}"></script>
+    <script src="{{url_for('static', filename='dashassets/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
+    <script src="{{url_for('static', filename='dashassets/assets/vendors/owl-carousel-2/owl.carousel.min.js')}}"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{{url_for('static', filename='dashassets/assets/js/off-canvas.js')}}"></script>
+    <script src="{{url_for('static', filename='dashassets/assets/js/hoverable-collapse.js')}}"></script>
+    <script src="{{url_for('static', filename='dashassets/assets/js/misc.js')}}"></script>
+    <script src="{{url_for('static', filename='dashassets/assets/js/settings.js')}}"></script>
+    <script src="{{url_for('static', filename='dashassets/assets/js/todolist.js')}}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="{{url_for('static', filename='dashassets/assets/js/dashboard.js')}}"></script>
+    <!-- End custom js for this page -->
+  </body>
+</html>

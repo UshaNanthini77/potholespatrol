@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pothole patrol</title>
+    <!--key=AIzaSyBy4leqdfpK7T0tL3zR36mjfDjO0iXABrM key=AIzaSyAiRHmOco9e2PhMwZIFMsmYQfLvYau07Lc -->
+    <!--<script src="https://maps.google.com/maps/api/jsvv=3.exp&key=AIzaSyAiRHmOco9e2PhMwZIFMsmYQfLvYau07Lc&libraries=places"> </script>-->
+    
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{{url_for('static', filename='fonts/material-icon/css/material-design-iconic-font.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" />
+    
+</head>
+<style>
+    .Holder {
+        width: 300px;
+        height: 300px;
+        margin: 11px auto;
+        background-color: aliceblue;
+        border: 1px solid aqua;
+    }
+    .Element {
+        width: 400px;
+        height: auto;
+    }
+    .button {
+        width: 200px;
+        height: 50px;
+        border: 0px solid;
+        background-color: #ed563b;
+        color: #fff;
+        font-size: 14px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .button:hover {
+        background-color: #ed563b;
+        color: #fff;
+    }
+</style>
+<body>
+
+    
+    <div class="main">
+
+        <div class="container">
+           <!-- <div class="booking-content">-->
+                <!--<div class="booking-image">
+                    <img class="booking-img" src="/static/images/pot.jpeg" alt="Booking Image">
+                </div>-->
+                <div class="booking-form">
+                    <form id="booking-form" enctype="multipart/form-data" method = "post" action="/upload">
+                        <h2>Spot and report potholes now!</h2>
+                        <div class="form-group form-input">
+                            <input type="text" name="name" id="name" value="" required/>
+                            <label for="name" class="form-label">Your name</label>
+                        </div>
+                        <div class="form-group form-input">
+                            <input type="number" name="phone" id="phone" value="" required />
+                            <label for="phone" class="form-label">Your phone number</label>
+                        </div>
+                        
+                        <div class="form-group form-input">
+                            
+                            <input type="date" id="date" name="date">
+                            
+                        </div>
+                        <div class="form-group form-input">
+                               
+                                <div class="Element">
+                                    <input name="get_location" type="submit" class="button" id="get_location" value="Get Location" >
+                                </div>
+                                <br>
+                                <div class="Element">
+                                    <div id="map">
+                                        <iframe id="google_map" width="570" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk?output=embed"></iframe>
+                                    </div>
+                                </div>
+                            
+                        </div>
+                        <div>
+                            <br>
+                            <input id = "video_re" name = "video_select" accept = "video/*" type = "file">
+                        </div>
+                       
+        
+                        <div class="form-group">
+                            <br>
+                            <label for="comment" class="form-label">Comments</label>
+                            <br>
+                        
+                            <textarea rows="4" cols="50" name="comment" style="color: #ed563b; background: #000000"></textarea>
+                            
+                        </div>
+                        <div class="form-radio">
+                            <label class="label-radio">Severity of potholes</label>
+                            <div class="radio-item-list">
+                                <span class="radio-item">
+                                    <input type="radio" name="number_people" value="1" id="number_people_2" />
+                                    <label for="number_people_2">1</label>
+                                </span>
+                                <span class="radio-item active">
+                                    <input type="radio" name="number_people" value="2" id="number_people_4" />
+                                    <label for="number_people_4">2</label>
+                                </span>
+                                <span class="radio-item">
+                                    <input type="radio" name="number_people" value="3" id="number_people_6" />
+                                    <label for="number_people_6">3</label>
+                                </span>
+                                <span class="radio-item">
+                                    <input type="radio" name="number_people" value="4" id="number_people_8" />
+                                    <label for="number_people_8">4</label>
+                                </span>
+                                <span class="radio-item">
+                                    <input type="radio" name="number_people" value="5" id="number_people_10" />
+                                    <label for="number_people_10">5</label>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-submit">
+                            <input type="submit" value="SUBMIT" class="submit" id="submit" name="submit" />
+        
+                        </div>
+                    </form>
+                </div>
+            <!--</div>-->
+        </div>
+
+    </div>
+<script>
+        var c = function(pos) {
+            var lat = pos.coords.latitude,
+                long = pos.coords.longitude,
+                coords = lat + ',' + long;
+            document.getElementById('google_map').setAttribute('src', 'https://maps.google.co.uk?q='+ coords +'&z=60&output=embed');
+            $.ajax({
+                url: '{{ url_for('path') }}',
+                type: 'POST',
+                data: {
+                    lati: lat,
+                    longi: long
+                },
+                success: function (response) {
+                },
+                error: function (response) {
+                }
+            });
+        }
+
+        document.getElementById('get_location').onclick=function() {
+            navigator.geolocation.getCurrentPosition(c);
+            return false;
+        }
+    </script>
+    <!-- JS -->
+    <script src="{{url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

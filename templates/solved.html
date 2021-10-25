@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/admindb.css')}}">
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>  
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+<link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+  </head>
+  <body>
+    <!-- Header -->
+  <div class="header">
+    <h1><b>Pothole reports - Solved</b></h1>
+  </div>
+
+  <!-- Photo Grid -->
+      <!-- Row 1 -->
+  <div class="card-deck">
+    {% for det in details %}
+      <div class="card" style="min-width: 20rem; max-width: 22rem; margin-top: 5px; margin-left: 40px">
+      <!--width="414" height="300"-->
+        <video id="vid" class="embed-responsive embed-responsive-16by9" controls="controls" poster="{{url_for('static', filename='images/bg.jpg')}}"> 
+            <source src="{{url_for('file', filename = det['videofile'])}}" type="video/mp4"> 
+        </video> 
+        <div class="card-body">
+          <h5 class="card-title">Report</h5>
+          
+          <ul class="list-group">
+            <li class="list-group-item"><i class="fa fa-user"style="font-size:20px;"></i>   Name: {{det['name']}}</li>
+            <li class="list-group-item"><i class="fa fa-inr"style="font-size:20px;"></i>   Email: {{det['email']}}</li>
+            <li class="list-group-item"><i class="fa fa-inr"style="font-size:20px;"></i>   Potholes detected: {{det['pothole detected']}}</li>
+            <li class="list-group-item"><i class="fa fa-percent"style="font-size:20px;"></i>  Potholes rate: {{det['accuracy']}}</li>
+            <li class="list-group-item"><i class="fa fa-map-marker"style="font-size:20px;"></i>   Location: {{det['pothole location']}}
+              {% set lati = det['latitude'] %}
+            {% set long = det['longitude'] %}
+            
+            <button class="btn" onclick="func('{{lati}}', '{{long}}')">showmap</button>
+            </li>
+            <li class="list-group-item"><i class="fa fa-clock-o"style="font-size:20px;"></i>   Date: {{det['date']}}</li>
+            <li class="list-group-item"><i class="fa fa-inr"style="font-size:20px;"></i>   Severity: {{det['severity']}}</li>
+          </ul>
+          
+        </div>
+        
+      </div>
+      {% endfor %}
+
+    </div>
+     <script type="text/javascript">
+      function func(lat,lon){
+       console.log('HI')
+            $("#dialog").dialog({
+            modal: true,
+            title: "Google Map",
+            width: 600,
+            hright: 450,
+            buttons: {
+                Close: function () {
+                    $(this).dialog('close');
+                }
+            },
+            open: function () {
+                var mapOptions = {
+                    center: new google.maps.LatLng(lat,lon),
+                    zoom: 18,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+                var map = new google.maps.Map($("#dvMap")[0], mapOptions);
+            }
+        });
+}
+    </script>
+  <div id="dialog" style="display: none">
+                <div id="dvMap" style="height: 380px; width: 580px;">
+                </div>
+            </div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+
+</html>
