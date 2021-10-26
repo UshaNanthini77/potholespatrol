@@ -6,5 +6,5 @@ save_non_project_files = False
 
 [main]
 version = 0.2.0
-recent_files = ['app.py', 'requirements.txt', 'Procfile']
+recent_files = ['app.py', 'Procfile', 'templates\\index.html', 'templates\\home.html', 'requirements.txt']
 

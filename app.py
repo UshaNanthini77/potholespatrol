@@ -22,7 +22,6 @@ import requests
 import json
 import geopy
 from geopy.geocoders import Nominatim
-
 from keras.models import Sequential
 from keras.models import model_from_json
 from keras.models import load_model
