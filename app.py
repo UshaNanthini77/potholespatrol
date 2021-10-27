@@ -22,7 +22,6 @@ import requests
 import json
 import geopy
 from geopy.geocoders import Nominatim
-
 from keras.models import Sequential
 from keras.models import model_from_json
 from keras.models import load_model
@@ -34,6 +33,7 @@ import glob
 import tempfile
 import pymongo
 import ssl
+import dns
 global loadedModel
 size = 300
 

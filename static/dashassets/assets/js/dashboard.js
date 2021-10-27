@@ -62,12 +62,10 @@
       });
     }
     if ($("#transaction-history").length) {
-    const data = JSON.parse('{{ data | tojson }}');
-    console.log(data);
       var areaData = {
-        labels: ["Approved", "Pending","Solved"],
+        labels: ["Paypal", "Stripe","Cash"],
         datasets: [{
-            data: [data[0],data[1],data[2]],
+            data: [55, 25, 20],
             backgroundColor: [
               "#111111","#00d25b","#ffab00"
             ]
@@ -104,7 +102,7 @@
           ctx.textBaseline = "middle";
           ctx.fillStyle = "#ffffff";
       
-          var text = "20", 
+          var text = "$1200", 
               textX = Math.round((width - ctx.measureText(text).width) / 2),
               textY = height / 2.4;
       
