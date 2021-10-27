@@ -22,12 +22,7 @@ import requests
 import json
 import geopy
 from geopy.geocoders import Nominatim
-from tensorflow.keras import Sequential
-from keras.models import model_from_json
-from keras.models import load_model
-from keras.layers import Dense
-from keras.layers import Dropout
-from keras.utils import np_utils
+from tensorflow import keras
 from bson.objectid import ObjectId
 import glob
 import tempfile
@@ -53,7 +48,7 @@ userrecords = mongo.db.users
 
 
 def predict_pothole(currentFrame):
-    loadedModel = load_model('full_model.h5')
+    loadedModel = keras.models.load_model('full_model.h5')
     currentFrame = cv2.resize(currentFrame,(size,size))
     currentFrame = currentFrame.reshape(1,size,size,1).astype('float')
     currentFrame = currentFrame/255
